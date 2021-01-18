@@ -2,21 +2,10 @@
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { ButtonComponent } from './button.component';
 import { MatButtonModule } from '@angular/material/button';
-import { moduleMetadata } from '@storybook/angular/dist/client/preview/types';
-import { CommonModule } from '@angular/common';
 
 export default {
   title: 'Material/Button',
   component: ButtonComponent,
-  decorators: [
-      moduleMetadata({
-          declarations: [ ButtonComponent ],
-          imports: [ 
-            CommonModule,
-            MatButtonModule 
-        ]
-      }),
-  ],
   argTypes: {
       color: {
           control: 'string'
@@ -24,22 +13,31 @@ export default {
   }
 } as Meta;
 
-const Template: Story<ButtonComponent> = () => ({
+const Template: Story<ButtonComponent> = (args) => ({
   component: ButtonComponent,
-  props: {
-    color: '',
-    label: 'Button'
-  },
-  template: `
-    <button mat-raised-button [color]="color>{{ label }}</button>
-  `
+  props: args,
+  moduleMetadata: {
+    imports: [MatButtonModule]
+  }
 });
 
 export const Basic = Template.bind({});
-
+Basic.args = {
+  label: 'Default',
+  color: ''
+};
 export const Primary = Template.bind({});
 Primary.args = {
     label: 'Primary',
     color: 'primary'
 };
-
+export const Accent = Template.bind({});
+Accent.args = {
+  label: 'Accent',
+  color: 'accent'
+};
+export const Warn = Template.bind({});
+Warn.args = {
+  label: 'Warn',
+  color: 'warn'
+};
